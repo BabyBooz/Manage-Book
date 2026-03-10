@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - Manage Books</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
-        <h2>Đăng ký tài khoản</h2>
+        <h2><i class="fas fa-user-plus"></i> Đăng ký tài khoản</h2>
         
         <c:if test="${not empty error}">
             <div class="alert alert-error">${error}</div>
@@ -18,31 +19,31 @@
         
         <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="form-group">
-                <label for="username">Tên đăng nhập</label>
+                <label for="username"><i class="fas fa-user"></i> Tên đăng nhập</label>
                 <input type="text" id="username" name="username" required>
             </div>
             
             <div class="form-group">
-                <label for="fullName">Họ và tên</label>
+                <label for="fullName"><i class="fas fa-id-card"></i> Họ và tên</label>
                 <input type="text" id="fullName" name="fullName" required>
             </div>
             
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email"><i class="fas fa-envelope"></i> Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
             
             <div class="form-group">
-                <label for="password">Mật khẩu</label>
+                <label for="password"><i class="fas fa-lock"></i> Mật khẩu</label>
                 <input type="password" id="password" name="password" required minlength="6">
             </div>
             
             <div class="form-group">
-                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                <label for="confirmPassword"><i class="fas fa-lock"></i> Xác nhận mật khẩu</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6">
             </div>
             
-            <button type="submit" class="btn">Đăng ký</button>
+            <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Đăng ký</button>
         </form>
         
         <div class="form-footer">

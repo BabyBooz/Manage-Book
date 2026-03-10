@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin cá nhân - Manage Books</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
@@ -26,7 +27,7 @@
     <div class="container">
         <div class="profile-container">
             <div class="profile-header">
-                <h2>Thông tin cá nhân</h2>
+                <h2><i class="fas fa-user-circle"></i> Thông tin cá nhân</h2>
                 <p style="color: #666;">Quản lý thông tin tài khoản của bạn</p>
             </div>
 
@@ -66,16 +67,16 @@
             
             <form action="${pageContext.request.contextPath}/profile" method="post">
                 <div class="form-group">
-                    <label for="fullName">Họ và tên</label>
+                    <label for="fullName"><i class="fas fa-id-card"></i> Họ và tên</label>
                     <input type="text" id="fullName" name="fullName" value="${sessionScope.user.fullName}" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
                     <input type="email" id="email" name="email" value="${sessionScope.user.email}" required>
                 </div>
                 
-                <button type="submit" class="btn">Cập nhật thông tin</button>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Cập nhật thông tin</button>
             </form>
         </div>
     </div>

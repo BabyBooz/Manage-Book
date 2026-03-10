@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quên mật khẩu - Manage Books</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
-        <h2>Quên mật khẩu</h2>
+        <h2><i class="fas fa-key"></i> Quên mật khẩu</h2>
         
         <c:if test="${not empty error}">
             <div class="alert alert-error">${error}</div>
@@ -28,11 +29,11 @@
             <input type="hidden" name="action" value="request">
             
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email"><i class="fas fa-envelope"></i> Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
             
-            <button type="submit" class="btn">Gửi link đặt lại mật khẩu</button>
+            <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Gửi link đặt lại mật khẩu</button>
         </form>
         
         <div class="form-footer">
