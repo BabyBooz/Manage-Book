@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Context antiResourceLocking="false" path="/Manage_Book" privileged="true">
-  <!-- Disable memory leak detection warnings -->
-  <Manager pathname=""/>
-  <!-- Disable JAR scanning for faster startup -->
-  <JarScanner>
-    <JarScanFilter defaultPluggabilityScan="false"/>
-  </JarScanner>
-</Context>

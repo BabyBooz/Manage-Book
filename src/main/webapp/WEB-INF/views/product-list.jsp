@@ -15,14 +15,16 @@
         <div class="header-container">
             <a href="${pageContext.request.contextPath}/home" class="logo"><i class="fas fa-book"></i> Manage Books</a>
             <nav class="nav-menu">
-                <a href="${pageContext.request.contextPath}/products"><i class="fas fa-shopping-bag"></i> Sản phẩm</a>
+                <a href="${pageContext.request.contextPath}/products"><i class="fas fa-home"></i> Trang chủ</a>
                 <c:choose>
                     <c:when test="${not empty sessionScope.user}">
-                        <span class="user-info"><i class="fas fa-user"></i> Xin chào, ${sessionScope.user.fullName}</span>
+                        <a href="${pageContext.request.contextPath}/wishlist"><i class="fas fa-heart"></i> Yêu thích</a>
+                        <a href="${pageContext.request.contextPath}/cart"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
+                        <a href="${pageContext.request.contextPath}/orders"><i class="fas fa-box"></i> Đơn hàng</a>
                         <c:if test="${sessionScope.user.role == 1}">
                             <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-user-shield"></i> Admin</a>
                         </c:if>
-                        <a href="${pageContext.request.contextPath}/profile"><i class="fas fa-user-circle"></i> Tài khoản</a>
+                        <a href="${pageContext.request.contextPath}/profile"><i class="fas fa-user"></i> ${sessionScope.user.fullName}</a>
                         <a href="${pageContext.request.contextPath}/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
                     </c:when>
                     <c:otherwise>
@@ -83,17 +85,67 @@
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
                     <c:forEach var="product" items="${products}">
-                        <div class="feature-card" style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath}/product-detail?id=${product.productId}'">
-                            <img src="${product.imageUrl}" alt="${product.name}" 
-                                 style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 15px;"
-                                 onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/no-image.png'">
-                            <h3 style="color: #333; margin-bottom: 10px; font-size: 16px;">${product.name}</h3>
-                            <p style="color: #81c784; font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-                                ${product.price} VNĐ
-                            </p>
-                            <p style="color: #666; font-size: 14px;">
-                                Còn lại: ${product.stock} sản phẩm
-                            </p>
+                        <div class="feature-card" style="position: relative; display: flex; flex-direction: column; height: 100%;">
+                            <a href="${pageContext.request.contextPath}/product-detail?id=${product.productId}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1;">
+                                <img src="${pageContext.request.contextPath}/${product.imageUrl}" alt="${product.name}" 
+                                     style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 15px;"
+                                     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/no-image.png'">
+                                <h3 style="color: #333; margin-bottom: 10px; font-size: 16px; height: 48px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.5;">
+                                    ${product.name}
+                                </h3>
+                                <p style="color: #81c784; font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+                                    ${product.price} VNĐ
+                                </p>
+                                <p style="color: ${product.stock > 0 ? '#666' : '#e57373'}; font-size: 14px; margin-bottom: 15px;">
+                                    <c:choose>
+                                        <c:when test="${product.stock > 0}">
+                                            Còn lại: ${product.stock} sản phẩm
+                                        </c:when>
+                                        <c:otherwise>
+                                            Hết hàng
+                                        </c:otherwise>
+                                    </c:choose>
+                                </p>
+                            </a>
+                            
+                            <!-- Action Buttons -->
+                            <div style="margin-top: auto;">
+                                <c:if test="${not empty sessionScope.user && product.stock > 0}">
+                                    <div style="display: flex; gap: 5px;">
+                                        <form method="post" action="${pageContext.request.contextPath}/cart" style="flex: 1;">
+                                            <input type="hidden" name="action" value="add">
+                                            <input type="hidden" name="productId" value="${product.productId}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="btn" style="width: 100%; padding: 8px; font-size: 14px;" 
+                                                    onclick="event.stopPropagation();">
+                                                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                                            </button>
+                                        </form>
+                                        <form method="post" action="${pageContext.request.contextPath}/wishlist" style="width: auto;">
+                                            <input type="hidden" name="action" value="add">
+                                            <input type="hidden" name="productId" value="${product.productId}">
+                                            <button type="submit" class="btn btn-secondary" style="padding: 8px 12px; font-size: 14px;" 
+                                                    onclick="event.stopPropagation();" title="Thêm vào yêu thích">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </c:if>
+                                
+                                <c:if test="${empty sessionScope.user}">
+                                    <div style="text-align: center;">
+                                        <a href="${pageContext.request.contextPath}/login" style="color: #81c784; font-size: 14px;">
+                                            Đăng nhập để mua hàng
+                                        </a>
+                                    </div>
+                                </c:if>
+                                
+                                <c:if test="${not empty sessionScope.user && product.stock <= 0}">
+                                    <div style="text-align: center;">
+                                        <span style="color: #e57373; font-size: 14px;">Sản phẩm tạm hết hàng</span>
+                                    </div>
+                                </c:if>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>

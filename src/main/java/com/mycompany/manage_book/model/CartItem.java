@@ -8,9 +8,11 @@ public class CartItem {
     private int productId;
     private int quantity;
     
-    // For joined queries
-    private Product product;
-    private BigDecimal subtotal;
+    // For joined queries - helper fields
+    private String productName;
+    private BigDecimal productPrice;
+    private String productImageUrl;
+    private int productStock;
     
     public CartItem() {}
     
@@ -34,9 +36,16 @@ public class CartItem {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
+    // Helper fields getters and setters
+    public String getProductName() { return productName; }
+    public void setProductName(String productName) { this.productName = productName; }
     
-    public BigDecimal getSubtotal() { return subtotal; }
-    public void setSubtotal(BigDecimal subtotal) { this.subtotal = subtotal; }
+    public BigDecimal getProductPrice() { return productPrice; }
+    public void setProductPrice(BigDecimal productPrice) { this.productPrice = productPrice; }
+    
+    public String getProductImageUrl() { return productImageUrl; }
+    public void setProductImageUrl(String productImageUrl) { this.productImageUrl = productImageUrl; }
+    
+    public int getProductStock() { return productStock; }
+    public void setProductStock(int productStock) { this.productStock = productStock; }
 }

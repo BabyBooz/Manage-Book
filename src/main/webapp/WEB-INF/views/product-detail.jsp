@@ -15,14 +15,16 @@
         <div class="header-container">
             <a href="${pageContext.request.contextPath}/home" class="logo"><i class="fas fa-book"></i> Manage Books</a>
             <nav class="nav-menu">
-                <a href="${pageContext.request.contextPath}/products"><i class="fas fa-shopping-bag"></i> Sản phẩm</a>
+                <a href="${pageContext.request.contextPath}/products"><i class="fas fa-home"></i> Trang chủ</a>
                 <c:choose>
                     <c:when test="${not empty sessionScope.user}">
-                        <span class="user-info"><i class="fas fa-user"></i> Xin chào, ${sessionScope.user.fullName}</span>
+                        <a href="${pageContext.request.contextPath}/wishlist"><i class="fas fa-heart"></i> Yêu thích</a>
+                        <a href="${pageContext.request.contextPath}/cart"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
+                        <a href="${pageContext.request.contextPath}/orders"><i class="fas fa-box"></i> Đơn hàng</a>
                         <c:if test="${sessionScope.user.role == 1}">
                             <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-user-shield"></i> Admin</a>
                         </c:if>
-                        <a href="${pageContext.request.contextPath}/profile"><i class="fas fa-user-circle"></i> Tài khoản</a>
+                        <a href="${pageContext.request.contextPath}/profile"><i class="fas fa-user"></i> ${sessionScope.user.fullName}</a>
                         <a href="${pageContext.request.contextPath}/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
                     </c:when>
                     <c:otherwise>
@@ -76,13 +78,27 @@
                     </div>
                     
                     <c:if test="${not empty sessionScope.user && product.stock > 0}">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 10px;">Số lượng:</label>
+                            <input type="number" id="quantity" value="1" min="1" max="${product.stock}" 
+                                   style="width: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
                         <div style="display: flex; gap: 10px;">
-                            <button class="btn" style="flex: 1;" onclick="alert('Chức năng thêm vào giỏ hàng sẽ được phát triển sau')">
-                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
-                            </button>
-                            <button class="btn btn-secondary" style="width: auto;" onclick="alert('Chức năng wishlist sẽ được phát triển sau')">
-                                <i class="fas fa-heart"></i> Yêu thích
-                            </button>
+                            <form method="post" action="${pageContext.request.contextPath}/cart" style="flex: 1;">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="productId" value="${product.productId}">
+                                <input type="hidden" name="quantity" id="cartQuantity" value="1">
+                                <button type="submit" class="btn" style="width: 100%;" onclick="document.getElementById('cartQuantity').value = document.getElementById('quantity').value;">
+                                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                </button>
+                            </form>
+                            <form method="post" action="${pageContext.request.contextPath}/wishlist">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="productId" value="${product.productId}">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-heart"></i> Yêu thích
+                                </button>
+                            </form>
                         </div>
                     </c:if>
                     

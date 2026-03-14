@@ -178,20 +178,29 @@ public class AdminProductServlet extends HttpServlet {
         // Tạo tên file unique
         String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
         
-        // Lấy đường dẫn thực tế của thư mục images
-        String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+        // Lấy đường dẫn thực tế của project (src/main/webapp/images)
+        String realPath = getServletContext().getRealPath("/images");
+        String projectPath = realPath.replace("target" + File.separator + "Manage_Book-s", "src" + File.separator + "main" + File.separator + "webapp");
         
         // Tạo thư mục nếu chưa tồn tại
-        File uploadDir = new File(uploadPath);
+        File uploadDir = new File(projectPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
         
-        // Lưu file
-        String filePath = uploadPath + File.separator + uniqueFileName;
+        // Lưu file vào thư mục nguồn
+        String filePath = projectPath + File.separator + uniqueFileName;
         try (InputStream input = filePart.getInputStream()) {
             Files.copy(input, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
         }
+        
+        // Copy sang thư mục target để hiển thị ngay
+        String targetPath = realPath + File.separator + uniqueFileName;
+        File targetDir = new File(realPath);
+        if (!targetDir.exists()) {
+            targetDir.mkdirs();
+        }
+        Files.copy(Paths.get(filePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
         
         // Trả về đường dẫn tương đối để lưu vào database
         return "images/" + uniqueFileName;
