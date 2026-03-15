@@ -17,6 +17,28 @@
         .status-1 { background: #cfe2ff; color: #084298; }
         .status-2 { background: #d1e7dd; color: #0f5132; }
         .status-3 { background: #f8d7da; color: #842029; }
+
+        .btn {
+    display: inline-flex;
+    align-items: center;  /* Căn chỉnh theo chiều dọc */
+    justify-content: center;  /* Căn chỉnh theo chiều ngang */
+    height: 40px;  /* Chiều cao cố định */
+    padding: 0 12px;  /* Padding bên trái và phải */
+    background-color: #81c784;  /* Màu nền nút */
+    color: white;  /* Màu chữ */
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0; /* Đảm bảo không có khoảng cách thừa */
+}
+
+/* Đảm bảo khoảng cách giữa biểu tượng và chữ */
+.btn i {
+    margin-right: 5px;  /* Khoảng cách giữa icon và chữ */
+}
+
     </style>
 </head>
 <body>
@@ -73,23 +95,25 @@
                             </td>
                             <td>${order.createdAt}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/orders?orderId=${order.orderId}" class="btn btn-small">
-                                    <i class="fas fa-eye"></i> Chi tiết
-                                </a>
-                                <c:if test="${order.status < 2}">
-                                    <form method="post" action="${pageContext.request.contextPath}/admin/orders" style="display: inline;">
-                                        <input type="hidden" name="action" value="update_status">
-                                        <input type="hidden" name="orderId" value="${order.orderId}">
-                                        <input type="hidden" name="status" value="${order.status + 1}">
-                                        <button type="submit" class="btn btn-small">
-                                            <i class="fas fa-arrow-right"></i> 
-                                            <c:choose>
-                                                <c:when test="${order.status == 0}">Duyệt</c:when>
-                                                <c:when test="${order.status == 1}">Hoàn thành</c:when>
-                                            </c:choose>
-                                        </button>
-                                    </form>
-                                </c:if>
+                                <div style="display: flex; gap: 5px; align-items: center;">
+                                    <a href="${pageContext.request.contextPath}/admin/orders?orderId=${order.orderId}" class="btn btn-small" style="text-decoration: none;">
+                                        <i class="fas fa-eye"></i> Chi tiết
+                                    </a>
+                                    <c:if test="${order.status < 2}">
+                                        <form method="post" action="${pageContext.request.contextPath}/admin/orders" style="margin: 0;">
+                                            <input type="hidden" name="action" value="update_status">
+                                            <input type="hidden" name="orderId" value="${order.orderId}">
+                                            <input type="hidden" name="status" value="${order.status + 1}">
+                                            <button type="submit" class="btn btn-small">
+                                                <i class="fas fa-arrow-right"></i> 
+                                                <c:choose>
+                                                    <c:when test="${order.status == 0}">Duyệt</c:when>
+                                                    <c:when test="${order.status == 1}">Hoàn thành</c:when>
+                                                </c:choose>
+                                            </button>
+                                        </form>
+                                    </c:if>
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>

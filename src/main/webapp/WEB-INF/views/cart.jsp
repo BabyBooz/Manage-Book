@@ -61,8 +61,8 @@
             <c:when test="${empty cartItems}">
                 <div class="card" style="text-align: center; padding: 40px;">
                     <i class="fas fa-shopping-cart" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
-                    <p style="font-size: 18px; color: #666;">Giỏ hàng của bạn đang trống</p>
-                    <a href="${pageContext.request.contextPath}/products" class="btn" style="margin-top: 20px;">
+                    <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Giỏ hàng của bạn đang trống</p>
+                    <a href="${pageContext.request.contextPath}/products" class="btn" style="display: inline-block; text-decoration: none;">
                         <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
                     </a>
                 </div>

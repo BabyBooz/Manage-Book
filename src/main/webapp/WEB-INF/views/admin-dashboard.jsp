@@ -58,9 +58,9 @@
         <div style="background: white; padding: 30px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h2 style="color: #81c784; margin-bottom: 20px;"><i class="fas fa-bolt"></i> Thao tác nhanh</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <a href="${pageContext.request.contextPath}/admin/products" class="btn"><i class="fas fa-box"></i> Quản lý sản phẩm</a>
-                <a href="${pageContext.request.contextPath}/admin/categories" class="btn"><i class="fas fa-tags"></i> Quản lý danh mục</a>
-                <a href="${pageContext.request.contextPath}/products" class="btn btn-secondary"><i class="fas fa-eye"></i> Xem trang chủ</a>
+                <a href="${pageContext.request.contextPath}/admin/products" class="btn" style="text-decoration: none;"><i class="fas fa-box"></i> Quản lý sản phẩm</a>
+                <a href="${pageContext.request.contextPath}/admin/categories" class="btn" style="text-decoration: none;" ><i class="fas fa-tags"></i> Quản lý danh mục</a>
+                <a href="${pageContext.request.contextPath}/products" class="btn btn-secondary" style="text-decoration: none;"><i class="fas fa-eye"></i> Xem trang chủ</a>
             </div>
         </div>
     </div>
