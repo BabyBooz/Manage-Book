@@ -158,7 +158,6 @@ public class UserDAO {
         }
         return false;
     }
-}
 
     // Đổi mật khẩu
     public boolean changePassword(int userId, String newPassword) {
@@ -176,3 +175,5 @@ public class UserDAO {
             return false;
         }
     }
+
+}
