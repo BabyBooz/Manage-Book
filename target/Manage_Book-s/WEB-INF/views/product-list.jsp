@@ -38,6 +38,44 @@
 
     <!-- Main Content -->
     <div class="container">
+        <!-- Vouchers Section -->
+        <c:if test="${not empty vouchers}">
+            <div style="background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%); padding: 20px; border-radius: 4px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h2 style="color: white; margin: 0 0 15px 0;">
+                    <i class="fas fa-ticket-alt"></i> Mã giảm giá đang có
+                </h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+                    <c:forEach var="voucher" items="${vouchers}" varStatus="status">
+                        <c:if test="${status.index < 4}">
+                            <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #ff9800;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h3 style="color: #ff9800; margin: 0; font-size: 18px;">
+                                        <i class="fas fa-tag"></i> ${voucher.code}
+                                    </h3>
+                                    <button onclick="copyVoucher('${voucher.code}')" style="background: #ff9800; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                                <p style="margin: 5px 0; color: #333; font-size: 14px;">
+                                    Giảm <strong>${voucher.discountPercent}%</strong> - Tối đa ${voucher.maxDiscount} VNĐ
+                                </p>
+                                <p style="margin: 5px 0; color: #666; font-size: 12px;">
+                                    <i class="fas fa-ticket-alt"></i> Còn ${voucher.usageLimit} lượt
+                                </p>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+                <c:if test="${vouchers.size() > 4}">
+                    <div style="text-align: center; margin-top: 15px;">
+                        <a href="${pageContext.request.contextPath}/vouchers" style="color: white; text-decoration: none; font-size: 14px;">
+                            Xem tất cả mã giảm giá <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </c:if>
+            </div>
+        </c:if>
+
         <div style="display: flex; gap: 30px; margin-top: 20px;">
             <!-- Sidebar Categories -->
             <div style="width: 250px; flex-shrink: 0;">
@@ -178,5 +216,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function copyVoucher(code) {
+            navigator.clipboard.writeText(code).then(function() {
+                alert('Đã copy mã: ' + code);
+            });
+        }
+    </script>
 </body>
 </html>

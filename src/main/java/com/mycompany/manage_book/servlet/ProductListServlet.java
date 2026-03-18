@@ -2,8 +2,10 @@ package com.mycompany.manage_book.servlet;
 
 import com.mycompany.manage_book.dao.CategoryDAO;
 import com.mycompany.manage_book.dao.ProductDAO;
+import com.mycompany.manage_book.dao.VoucherDAO;
 import com.mycompany.manage_book.model.Category;
 import com.mycompany.manage_book.model.Product;
+import com.mycompany.manage_book.model.Voucher;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ProductListServlet extends HttpServlet {
     private ProductDAO productDAO = new ProductDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
+    private VoucherDAO voucherDAO = new VoucherDAO();
     private static final int PAGE_SIZE = 12;
     
     @Override
@@ -60,11 +63,15 @@ public class ProductListServlet extends HttpServlet {
         // Tính số trang
         int totalPages = (int) Math.ceil((double) totalProducts / PAGE_SIZE);
         
+        // Lấy danh sách vouchers đang active
+        List<Voucher> vouchers = voucherDAO.getActiveVouchers();
+        
         // Set attributes
         request.setAttribute("products", products);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("selectedCategoryId", selectedCategoryId);
+        request.setAttribute("vouchers", vouchers);
         
         request.getRequestDispatcher("/WEB-INF/views/product-list.jsp").forward(request, response);
     }
