@@ -90,6 +90,17 @@
                         <p style="color: #81c784; font-size: 16px; font-weight: bold;">
                             ${item.price} VNĐ x ${item.quantity} = ${item.price * item.quantity} VNĐ
                         </p>
+                        <c:if test="${order.status == 2 && !item.reviewed}">
+                            <a href="${pageContext.request.contextPath}/review?orderItemId=${item.orderItemId}&orderId=${order.orderId}" 
+                               class="btn btn-small" style="margin-top: 10px; text-decoration: none; display: inline-block;">
+                                <i class="fas fa-star"></i> Đánh giá sản phẩm
+                            </a>
+                        </c:if>
+                        <c:if test="${item.reviewed}">
+                            <span style="color: #81c784; font-size: 14px; margin-top: 10px; display: inline-block;">
+                                <i class="fas fa-check-circle"></i> Đã đánh giá
+                            </span>
+                        </c:if>
                     </div>
                 </div>
             </c:forEach>

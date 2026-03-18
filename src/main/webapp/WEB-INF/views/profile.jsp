@@ -13,7 +13,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-container">
-            <a href="${pageContext.request.contextPath}/home" class="logo">📚 Manage Books</a>
+            <a href="${pageContext.request.contextPath}/home" class="logo"><i class="fas fa-book"></i> Manage Books</a>
             <nav class="nav-menu">
                 <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
                 <span class="user-info">Xin chào, ${sessionScope.user.fullName}</span>

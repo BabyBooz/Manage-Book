@@ -159,3 +159,20 @@ public class UserDAO {
         return false;
     }
 }
+
+    // Đổi mật khẩu
+    public boolean changePassword(int userId, String newPassword) {
+        String sql = "UPDATE Users SET password = ? WHERE user_id = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, newPassword);
+            ps.setInt(2, userId);
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }

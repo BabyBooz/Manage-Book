@@ -40,8 +40,8 @@
             <c:when test="${empty wishlists}">
                 <div class="card" style="text-align: center; padding: 40px;">
                     <i class="fas fa-heart" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
-                    <p style="font-size: 18px; color: #666;">Danh sách yêu thích của bạn đang trống</p>
-                    <a href="${pageContext.request.contextPath}/products" class="btn" style="margin-top: 20px;">
+                    <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Danh sách yêu thích của bạn đang trống</p>
+                    <a href="${pageContext.request.contextPath}/products" class="btn" style="display: inline-block; text-decoration: none;"></a>
                         <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
                     </a>
                 </div>

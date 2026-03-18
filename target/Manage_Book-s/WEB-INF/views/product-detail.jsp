@@ -110,12 +110,45 @@
                 </div>
             </div>
 
-            <!-- Reviews Section (placeholder) -->
+            <!-- Reviews Section -->
             <div style="margin-top: 40px; padding-top: 40px; border-top: 2px solid #f0f0f0;">
-                <h2 style="color: #81c784; margin-bottom: 20px;"><i class="fas fa-star"></i> Đánh giá sản phẩm</h2>
-                <p style="color: #666; text-align: center; padding: 20px;">
-                    Chức năng đánh giá sẽ được phát triển sau
-                </p>
+                <h2 style="color: #81c784; margin-bottom: 20px;">
+                    <i class="fas fa-star"></i> Đánh giá sản phẩm
+                    <c:if test="${reviewCount > 0}">
+                        <span style="font-size: 18px; color: #666;">
+                            (${avgRating} <i class="fas fa-star" style="color: #ffc107; font-size: 16px;"></i> - ${reviewCount} đánh giá)
+                        </span>
+                    </c:if>
+                </h2>
+                
+                <c:choose>
+                    <c:when test="${empty reviews}">
+                        <p style="color: #666; text-align: center; padding: 20px;">
+                            Chưa có đánh giá nào cho sản phẩm này
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="review" items="${reviews}">
+                            <div style="padding: 20px; border-bottom: 1px solid #f0f0f0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div>
+                                        <strong style="color: #333;">${review.userFullName}</strong>
+                                        <div style="color: #ffc107; margin-top: 5px;">
+                                            <c:forEach begin="1" end="${review.rating}">
+                                                <i class="fas fa-star"></i>
+                                            </c:forEach>
+                                            <c:forEach begin="${review.rating + 1}" end="5">
+                                                <i class="far fa-star"></i>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                    <span style="color: #999; font-size: 14px;">${review.createdAt}</span>
+                                </div>
+                                <p style="color: #666; line-height: 1.6;">${review.comment}</p>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 
